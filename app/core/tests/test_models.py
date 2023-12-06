@@ -4,7 +4,7 @@ Tests for models.
 """
 from django.test import TestCase
 
-# helper function provided by Django that returns the user model that's currently active
+# noqa helper function provided by Django that returns the user model that's currently active
 from django.contrib.auth import get_user_model
 
 
@@ -15,10 +15,11 @@ class ModelTests(TestCase):
         """Test creating a user with an email is successful"""
         email = "test@example.com"
         password = "testpass123"
-        user = get_user_model().objects.create_user(email=email, password=password)
+        user_model = get_user_model()
+        user = user_model.objects.create_user(email=email, password=password)
 
         self.assertEqual(user.email, email)
-        # check_password method is default method that checks hashed password.
+        # noqa check_password method is default method that checks hashed password.
         self.assertTrue(user.check_password(password))
 
     def test_new_user_email_normalized(self):
@@ -45,6 +46,5 @@ class ModelTests(TestCase):
             "test@example.com",
             "test123",
         )
-
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
